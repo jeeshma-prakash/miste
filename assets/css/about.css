@@ -1,0 +1,210 @@
+
+ /* HERO SECTION */
+.hero-banner {
+  background: url('../images/hero/Misty\ Mountain\ Serenity.png') no-repeat  center/cover fixed;
+  height: 60vh;
+  margin-bottom: 6rem;
+}
+
+.hero-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: #0a4b733b; 
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.hero-title{
+  font-size: 110px;
+  margin-top: 12rem;
+}
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 100px;
+    margin-top: 11rem;
+  }
+}
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 80px;
+    margin-top: 10rem;
+  }
+}
+
+
+/* what we do */
+.services-section {
+  background: linear-gradient(320deg, #0a4b7338, white);
+  /* padding: 5px 50px 45px 50px; */
+  border-radius: 20px;
+  padding-top: 5rem !important;
+  padding-bottom: 3rem;
+}
+
+.section-pill {
+  display: inline-block;
+  background: #ffffff;
+  color: #0a4b73;
+  padding: 2px 10px;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  /* margin-top: 2rem; */
+  margin-bottom: 1rem;
+  border: 1px solid #0a4B73;
+}
+
+/* Keep card styles the same */
+.card-item {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  padding: 10px;
+  height: 250px;
+  transition: all 0.6s ease;
+  position: relative;
+}
+
+.card-content {
+  z-index: 2;
+  transition: all 0.5s ease;
+  text-align: center;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0a4b73;
+  margin-bottom: 15px;
+  transition: color 0.5s ease;
+}
+
+.card-desc {
+  font-size: 16px;
+  color: #333;
+  transition: color 0.5s ease;
+}
+
+.card-icon {
+  width: 80px;
+  height: 80px;
+  background-color: #ebfbfc;
+  border-radius: 15%;
+  display: flex;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  transition: all 0.6s ease-in;
+  transform-origin: center;
+  z-index: 2;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.137);
+  margin-bottom: 1rem;
+}
+
+.card-icon img {
+  width: 50px;
+  height: 50px;
+  transition: transform 0.6s ease-in, opacity 0.6s ease-in;
+}
+
+.card-item:hover {
+  background: #0a4b73;
+}
+
+.card-item:hover .card-title,
+.card-item:hover .card-desc {
+  color: white;
+}
+
+.card-item:hover .card-icon {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #def2ff;
+  opacity: 0.08;
+  border-radius: 0;
+  z-index: 1;
+  transform: scale(1.2);
+}
+
+.card-item:hover .card-icon img {
+  transform: scale(2.2) rotateY(20deg);
+  opacity: 0.15;
+}
+
+/* Carousel controls styling */
+.carousel-indicators {
+  bottom: -55px !important;
+}
+
+.carousel-indicators [data-bs-target] {
+  width: 10px !important;
+  height: 10px !important;
+  background-color: #0a4b73 !important;
+  border-radius: 50% !important;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #0a4b73;
+  border-radius: 50% !important;
+  padding: 15px;
+}
+
+/* quote section */
+.quote-section {
+  padding: 80px 20px;
+  background: linear-gradient(160deg, #0a4b73 0%, #0a4b73c0 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.quote-glass {
+  position: relative;
+  max-width: 900px;
+  padding: 50px 60px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  color: #fff;
+  text-align: center;
+}
+
+.quote-mark {
+  position: absolute;
+  font-size: 4rem;
+  color: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+.quote-mark.left {
+  top: 20px;
+  left: 20px;
+}
+
+.quote-mark.right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.quote-text {
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.quote-author {
+  display: block;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.85);
+}

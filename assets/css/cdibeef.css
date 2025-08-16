@@ -1,0 +1,383 @@
+body {
+    background-color: #ffffff;
+    
+}
+
+/* HERO SECTION */
+.hero-banner {
+    /* position: relative; */
+    background: url('../images/Blog/Cattle-Farmer-with-iPad-blg-lg.jpg') no-repeat center/cover fixed;
+    height: 70vh;
+    margin-bottom: 6rem;
+}
+
+.hero-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.559);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.hero-title {
+    font-size: 64px;
+    margin-top: 10rem;
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 37px;
+        margin-top: 10rem;
+    }
+    .hero-subtitle {
+        font-size: 21px;
+        margin-top: 2rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 30px;
+        margin-top: 10rem;
+    }
+    .hero-subtitle {
+        font-size: 18px;
+        margin-top: 2rem !important;
+    }
+}
+
+
+.link-home {
+    text-decoration: none;
+    color: white;
+}
+.img-left{
+    border-radius: 10px;
+}
+
+/* icon section */
+
+
+    .icon-carousel {
+        overflow: hidden;
+        padding: 20px 0;
+        background: #fff;
+        margin-top: 5rem;
+      
+    }
+
+    .icon-track {
+        display: flex;
+        width: max-content;
+        animation: scroll-left 25s linear infinite;
+    }
+
+    /* Pause carousel on hover */
+    .icon-carousel:hover .icon-track {
+        animation-play-state: paused;
+    }
+
+    .logo1 {
+        text-align: center;
+        min-width: 200px;
+        margin: 0 20px;
+        transition: filter 0.3s ease, transform 0.3s ease;
+    }
+
+    .logo1 img {
+        max-width: 80px;
+        margin-bottom: 10px;
+        transition: filter 0.3s ease, transform 0.3s ease;
+    }
+
+    .logo1 h5 {
+        font-size: 14px;
+        color: #0a4b73;
+        transition: color 0.3s ease;
+    }
+
+    /* Grayscale all icons when hovering over carousel */
+    .icon-carousel:hover .logo1 {
+        filter: grayscale(100%);
+        transform: scale(1);
+    }
+
+    /* Remove grayscale and zoom on hovered icon */
+    .icon-carousel:hover .logo1:hover {
+        filter: grayscale(0%);
+        transform: scale(1.2);
+    }
+
+    @keyframes scroll-left {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    /* api section */
+    .api-section {
+       margin-top: 7rem;
+    
+    }
+.img-api{
+    width: 650px;
+}
+
+@media (max-width: 1324px) {
+    .img-api {
+        width: 100%;
+    }
+}
+.api-title{
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #0a4b73;
+}
+.api-subtitle{
+    font-size: 1rem;
+    color: rgb(66, 66, 66);
+}
+
+/* question section */
+ h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .accordion-container {
+        max-width: 1300px;
+        margin: auto;
+        background: #fff;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .accordion-item {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .accordion-header {
+        cursor: pointer;
+        padding: 18px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: black;
+        background: #fff;
+        transition: color 0.3s ease;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .accordion-header.active {
+        color: #0a4b73;
+    }
+
+    .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        padding: 0 20px;
+        background: #f9f9f9;
+    }
+
+    .accordion-content p {
+        margin: 15px 0;
+    }
+
+    .accordion-content.open {
+        padding: 2px 20px;
+    }
+
+
+/* proble solve section */
+
+.problem-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 5rem;
+}
+
+ .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        max-width: 1300px;
+        margin: auto;
+    }
+
+    .card {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        text-align: left;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        position: relative;
+        overflow: hidden;
+    }
+    .card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 8px 25px rgba(0, 91, 187, 0.2);
+    }
+
+    .card::before {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(120deg, #0a4b73, #007bb5);
+        transition: top 0.4s ease;
+        z-index: 0;
+    }
+
+    .card:hover::before {
+        top: 0;
+    }
+
+    .icon {
+        font-size: 40px;
+        color: #0a4b73;
+        margin-bottom: 15px;
+        z-index: 1;
+        position: relative;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover .icon {
+        transform: rotate(1deg) scale(1.1);
+        color: white;
+    }
+
+    .card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        z-index: 1;
+        position: relative;
+        color: #222;
+    }
+
+    .card:hover h3,
+    .card:hover p {
+        color: white;
+    }
+
+    .card p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: #555;
+        z-index: 1;
+        position: relative;
+    }
+
+/* problem section */
+
+.visa-cards {
+    flex: 1 1 350px;
+    max-width: 900px;
+}
+
+   .section-heading {
+        font-size: 40px;
+        font-weight: bold;
+        color: #0a4b73;
+        margin-bottom: 3rem;
+        margin-top: 7rem !important;
+     
+    }
+
+.card1 {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.card1 h4 {
+    color: #0a4b73;
+    margin-bottom: 10px;
+}
+
+.card1 p {
+    color: #333;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+@media (max-width: 767px) {
+    .card1 {
+        text-align: center;
+    }
+}
+
+.card1:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Right side frames */
+
+.frame img {
+    width: auto;
+    border-radius: 20px;
+}
+
+.frame:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+@media(max-width: 900px) {
+    .visa-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .frames {
+        display: none;
+    }
+
+}
+
+.card1-sec1 {
+    display: flex;
+    flex-direction: row;
+}
+
+/* mla logo section */
+.mla-section {
+  background-color: #f9f9f9;
+  padding: 40px 20px;
+}
+
+.mla-text {
+  max-width: 600px;
+}
+
+.mla-text p {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #6e6e6e;
+  margin-bottom: 10px;
+  line-height: 1.4;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.mla-underline {
+  width: 65px;
+  height: 3px;
+  background-color: #c4c4c4;
+}
+
+.mla-logo img {
+  max-width: 300px;
+  height: auto;
+}
