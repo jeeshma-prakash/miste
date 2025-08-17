@@ -10,16 +10,19 @@
         }
     });
 
-fetch('/navbar.html')
-    .then(res => res.text())
-    .then(data => {
-        document.getElementById('navbar').innerHTML = data;
-        initNavbarFeatures();
-    });
+fetch('/miste/navbar.html')
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById('navbar').innerHTML = data;
+    initNavbarFeatures();
+  });
 
-fetch('/footer.html')
-    .then(res => res.text())
-    .then(data => document.getElementById('footer').innerHTML = data);
+fetch('/miste/footer.html')
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById('footer').innerHTML = data;
+  });
+
 
 
   window.addEventListener('scroll', function () {
