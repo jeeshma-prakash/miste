@@ -10,60 +10,192 @@
         }
     });
 
-// Detect the repo base path dynamically (important for GitHub Pages)
-const repoName = "miste"; // change if your repo name changes
-const basePath = window.location.pathname.includes(`/${repoName}/`)
-  ? `/${repoName}/`
-  : "/";
+/* ========== PATH HELPERS (GitHub Pages friendly) ========== */
 
-// Load Navbar
-fetch(`${basePath}navbar.html`)
-  .then(res => {
-    if (!res.ok) throw new Error("Navbar not found");
-    return res.text();
-  })
-  .then(data => {
-    document.getElementById("navbar").innerHTML = data;
-    initNavbarFeatures(); // call your navbar functions here
-  })
-  .catch(err => console.error("Navbar load error:", err));
+// Guess the repo root from the URL: "/miste/" for https://.../miste/anything
+function getRepoBase() {
+  // example: "/miste/solutions/page.html" -> "/miste/"
+  const m = window.location.pathname.match(/^\/[^/]+\//);
+  if (m && m[0] !== "/") return `/${m[0]}`; // not expected, but safe
+  return m ? m[0] : "/"; // if custom domain, this becomes "/"
+}
+const BASE = getRepoBase();
 
-// Load Footer
-fetch(`${basePath}footer.html`)
-  .then(res => {
-    if (!res.ok) throw new Error("Footer not found");
-    return res.text();
-  })
-  .then(data => {
-    document.getElementById("footer").innerHTML = data;
-  })
-  .catch(err => console.error("Footer load error:", err));
+/* Resolve a possibly-relative URL to an absolute path from the repo root. */
+function toRootAbsolute(url) {
+  if (!url) return url;
+  const trimmed = url.trim();
+  // ignore anchors, mailto, tel, absolute http(s), protocol-relative, and already absolute-root (/...)
+  if (
+    trimmed.startsWith("#") ||
+    trimmed.startsWith("mailto:") ||
+    trimmed.startsWith("tel:") ||
+    /^https?:\/\//i.test(trimmed) ||
+    trimmed.startsWith("//") ||
+    trimmed.startsWith(BASE) ||
+    trimmed.startsWith("/")
+  ) {
+    return trimmed;
+  }
+  // make it root-absolute under the repo
+  return BASE + trimmed.replace(/^\.?\//, "");
+}
 
+/* After injecting HTML, fix all relative href/src inside that container */
+function absolutizeLinks(container) {
+  if (!container) return;
+  const selector = [
+    "a[href]",
+    "link[href]",
+    "script[src]",
+    "img[src]",
+    "source[src]",
+    "video[src]",
+    "audio[src]",
+    "use[href]"
+  ].join(",");
+  container.querySelectorAll(selector).forEach(el => {
+    if (el.hasAttribute("href")) el.setAttribute("href", toRootAbsolute(el.getAttribute("href")));
+    if (el.hasAttribute("src")) el.setAttribute("src", toRootAbsolute(el.getAttribute("src")));
+  });
+}
 
-// Example Navbar Features Initialization
+/* ========== INCLUDE NAVBAR + FOOTER ========== */
+
+function loadPartial(targetId, filename, afterInsert) {
+  const target = document.getElementById(targetId);
+  if (!target) return;
+  // IMPORTANT: fetch *from repo root*, works on any subfolder
+  fetch(`${BASE}${filename}`)
+    .then(res => {
+      if (!res.ok) throw new Error(`${filename} not found`);
+      return res.text();
+    })
+    .then(html => {
+      target.innerHTML = html;
+      // rewrite any relative URLs inside the injected HTML
+      absolutizeLinks(target);
+      if (typeof afterInsert === "function") afterInsert();
+    })
+    .catch(err => {
+      console.error(`Failed to load ${filename}:`, err);
+    });
+}
+
+/* ========== NAVBAR INTERACTIONS ========== */
+
 function initNavbarFeatures() {
-  // Navbar scroll background effect
-  const navbar = document.querySelector(".navbar");
-  if (navbar) {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add("scrolled");
-      } else {
-        navbar.classList.remove("scrolled");
+  // mobile: close when clicking outside
+  document.addEventListener("click", function (e) {
+    const navbarMenu = document.getElementById("navbarMenu");
+    const toggler = document.querySelector(".navbar-toggler");
+    if (!navbarMenu || !toggler) return;
+
+    const isOpen = navbarMenu.classList.contains("show");
+    const clickedInside = navbarMenu.contains(e.target) || toggler.contains(e.target);
+    if (window.innerWidth < 992 && isOpen && !clickedInside) {
+      try {
+        const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarMenu);
+        bsCollapse.hide();
+      } catch (_) {}
+    }
+  });
+
+  // optional dedicated close button for offcanvas style menus
+  const closeBtn = document.querySelector(".mobile-close-btn");
+  const navbarMenu = document.getElementById("navbarMenu");
+  if (closeBtn && navbarMenu) {
+    closeBtn.addEventListener("click", function () {
+      try {
+        const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarMenu);
+        bsCollapse.hide();
+      } catch (_) {}
+    });
+  }
+
+  // hover dropdowns on desktop
+  document.querySelectorAll(".navbar .dropdown").forEach(dropdown => {
+    const toggle = dropdown.querySelector(".dropdown-toggle");
+    if (!toggle) return;
+
+    dropdown.addEventListener("mouseenter", function () {
+      if (window.innerWidth >= 992) {
+        try {
+          bootstrap.Dropdown.getOrCreateInstance(toggle).show();
+        } catch (_) {}
       }
     });
-  }
 
-  // Mobile menu toggle (example)
-  const toggleBtn = document.querySelector(".navbar-toggler");
-  const menu = document.querySelector(".navbar-collapse");
-
-  if (toggleBtn && menu) {
-    toggleBtn.addEventListener("click", () => {
-      menu.classList.toggle("show");
+    dropdown.addEventListener("mouseleave", function () {
+      if (window.innerWidth >= 992) {
+        try {
+          bootstrap.Dropdown.getOrCreateInstance(toggle).hide();
+        } catch (_) {}
+      }
     });
+
+    // optional: redirect on heading click (desktop only)
+    if (toggle.dataset.redirect) {
+      toggle.addEventListener("click", function () {
+        if (window.innerWidth >= 992) window.location.href = toggle.dataset.redirect;
+      });
+    }
+  });
+
+  // add/remove .scrolled on navbar
+  const navbar = document.querySelector(".navbar");
+  function onScroll() {
+    if (!navbar) return;
+    if (window.scrollY > 50) navbar.classList.add("scrolled");
+    else navbar.classList.remove("scrolled");
+  }
+  window.addEventListener("scroll", onScroll);
+  onScroll(); // initialize on load in case page starts scrolled
+}
+
+/* ========== PARALLAX SAFE INIT (Rellax) ========== */
+
+function initParallax() {
+  // Only run if Rellax is loaded and there are elements to parallax
+  const hasParallaxEls = document.querySelector(".parallax");
+  if (!hasParallaxEls) return;
+
+  if (typeof Rellax !== "undefined") {
+    try {
+      // init exactly once
+      if (!window.__rellaxInstance) {
+        window.__rellaxInstance = new Rellax(".parallax");
+      }
+    } catch (e) {
+      console.warn("Rellax init failed:", e);
+    }
+  } else {
+    // If Rellax not loaded for some page, fail gracefully.
+    // (Optional) you could add a tiny scroll effect here with CSS/JS if desired.
   }
 }
+
+/* ========== BOOTSTRAP ORDER SAFETY CHECK ========== */
+
+function bootstrapReady() {
+  return typeof bootstrap !== "undefined" && bootstrap.Collapse && bootstrap.Dropdown;
+}
+
+/* ========== DOM READY ========== */
+
+document.addEventListener("DOMContentLoaded", function () {
+  // load navbar then init features (needs Bootstrap to be present already)
+  loadPartial("navbar", "navbar.html", function () {
+    if (bootstrapReady()) initNavbarFeatures();
+    else console.warn("Bootstrap not ready when initializing navbar features.");
+  });
+
+  // load footer (no JS init required)
+  loadPartial("footer", "footer.html");
+
+  // init parallax after everything is in the DOM
+  initParallax();
+});
 
 
 
