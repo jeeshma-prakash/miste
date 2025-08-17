@@ -10,18 +10,60 @@
         }
     });
 
-fetch('/miste/navbar.html')
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById('navbar').innerHTML = data;
-    initNavbarFeatures();
-  });
+// Detect the repo base path dynamically (important for GitHub Pages)
+const repoName = "miste"; // change if your repo name changes
+const basePath = window.location.pathname.includes(`/${repoName}/`)
+  ? `/${repoName}/`
+  : "/";
 
-fetch('/miste/footer.html')
-  .then(res => res.text())
+// Load Navbar
+fetch(`${basePath}navbar.html`)
+  .then(res => {
+    if (!res.ok) throw new Error("Navbar not found");
+    return res.text();
+  })
   .then(data => {
-    document.getElementById('footer').innerHTML = data;
-  });
+    document.getElementById("navbar").innerHTML = data;
+    initNavbarFeatures(); // call your navbar functions here
+  })
+  .catch(err => console.error("Navbar load error:", err));
+
+// Load Footer
+fetch(`${basePath}footer.html`)
+  .then(res => {
+    if (!res.ok) throw new Error("Footer not found");
+    return res.text();
+  })
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  })
+  .catch(err => console.error("Footer load error:", err));
+
+
+// Example Navbar Features Initialization
+function initNavbarFeatures() {
+  // Navbar scroll background effect
+  const navbar = document.querySelector(".navbar");
+  if (navbar) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+  }
+
+  // Mobile menu toggle (example)
+  const toggleBtn = document.querySelector(".navbar-toggler");
+  const menu = document.querySelector(".navbar-collapse");
+
+  if (toggleBtn && menu) {
+    toggleBtn.addEventListener("click", () => {
+      menu.classList.toggle("show");
+    });
+  }
+}
 
 
 
