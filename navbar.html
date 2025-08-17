@@ -1,57 +1,44 @@
 <nav class="navbar navbar-expand-lg fixed-top">
   <div class="container-fluid navbar-con align-items-center justify-content-between">
-    
-    <!-- Logo -->
     <a class="navbar-brand" href="../index.html">
       <img src="../assets/images/logo/mistEO shadow Logo.png" class="logo" alt="Logo">
     </a>
-
-    <!-- Mobile toggle button -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" 
-      aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Collapsible menu -->
     <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+      <!-- Remove custom close button for mobile, Bootstrap handles collapse -->
       <ul class="navbar-nav me-4 mb-2 mb-lg-0">
-
         <li class="nav-item mx-2">
           <a class="nav-link" href="../index.html">Home</a>
         </li>
-
-        <!-- Solutions dropdown -->
         <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle" href="#" id="solutionsDropdown" role="button" 
-             data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="../solutions.html" id="solutionsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-redirect="../solutions.html">
             Solutions
           </a>
           <ul class="dropdown-menu" aria-labelledby="solutionsDropdown">
             <li><a class="dropdown-item" href="../solutions/indrawheather.html">IndraWeather</a></li>
             <li><a class="dropdown-item" href="../solutions/cdi-beef.html">CDI Beef</a></li>
             <li><a class="dropdown-item" href="../solutions/cdi-diary.html">CDI Dairy/Livestock</a></li>
-            <li><a class="dropdown-item" href="../solutions.html">View All</a></li>
           </ul>
         </li>
-
-        <!-- Company dropdown -->
         <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle" href="#" id="companyDropdown" role="button" 
-             data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="companyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Company
           </a>
           <ul class="dropdown-menu" aria-labelledby="companyDropdown">
-            <li><a class="dropdown-item" href="../about.html">About Us</a></li>
+            <li><a class="dropdown-item" href="../about.html">About US</a></li>
             <li><a class="dropdown-item" href="../team.html">Our Team</a></li>
             <li><a class="dropdown-item" href="../career.html">Careers</a></li>
             <li><a class="dropdown-item" href="../privacy-policy.html">Privacy Policy</a></li>
             <li><a class="dropdown-item" href="../documents.html">Documents</a></li>
           </ul>
         </li>
-
         <li class="nav-item mx-2"><a class="nav-link" href="../insights.html">Insights</a></li>
         <li class="nav-item mx-2"><a class="nav-link" href="../contact.html">Contact</a></li>
       </ul>
     </div>
   </div>
 </nav>
+      <button class="mobile-close-btn d-lg-none"  type="button" aria-label="Close">&times;</button>
