@@ -22,15 +22,15 @@ var rellax = new Rellax('.parallax');
 // gsap.from('.nav__item', {opacity: 0, duration: 3, delay: .7, y: 35, ease:'expo.out', stagger: .2})
 
 /*Text*/
-gsap.from('.home__title', {opacity:0, duration: 3, delay: 1.3, y: 35, ease:'expo.out'});
-gsap.from('.home__subtitle', {opacity:0, duration: 3, delay: 1.1 , y: 35, ease:'expo.out'});
+gsap.from('.home__title', {opacity:0, duration: 3, delay: 1, y: 35, ease:'expo.out'});
+gsap.from('.home__subtitle', {opacity:0, duration: 3, delay: .8 , y: 35, ease:'expo.out'});
 
 
 /*====== SCROLL REVEAL SECTION ======*/
-// const sr = ScrollReveal({
-//     duration: 2500,
-//     reset: true
-// });
+const sr = ScrollReveal({
+    duration: 2500,
+    reset: true
+});
 
 /*Data*/
 // sr.reveal('.section__data',{origin: 'left',distance: '70px'}); 
